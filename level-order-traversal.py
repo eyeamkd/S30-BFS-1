@@ -38,3 +38,66 @@ class Solution:
 
         return output
             
+
+'''
+Approach using the DFS with HashMap
+Time Complexity: O(n)
+Space Complexity: O(n) since we store all nodes in the output dictionary with Bucket sorting.
+'''
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+        output = defaultdict(list)
+
+        def dfs(node, depth):
+            if not node:
+                return
+
+            if node.left:
+                dfs(node.left, depth + 1)
+            if node.right:
+                dfs(node.right, depth + 1)
+
+            output[depth].append(node.val)
+
+        dfs(root, 0)
+
+        print(output)
+        res = []
+
+        i = 0 
+
+        while len(output[i])>0:
+            res.append(output[i])
+            i+=1
+        
+        return res
+
+'''
+Approach using the DFS with List 
+Time Complexity: O(n)
+Space Complexity: O(n) since we store all nodes in the output list.
+'''
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+
+        output = []
+
+        def dfs(node, depth):
+            if not node:
+                return
+            if len(output) == depth:
+                output.append([])
+
+            if node.left:
+                dfs(node.left, depth + 1)
+            if node.right:
+                dfs(node.right, depth + 1)
+
+            output[depth].append(node.val)
+
+        dfs(root, 0)
+
+        return output
